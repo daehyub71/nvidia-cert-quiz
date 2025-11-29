@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam Results &amp; Explanation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+                'FILL' 0,
+                'wght' 400,
+                'GRAD' 0,
+                'opsz' 24
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#76B900",
+                        "background-light": "#F5F5F7",
+                        "background-dark": "#222222",
+                        "surface-dark": "#333333",
+                        "surface-light": "#FFFFFF",
+                        "text-light": "#222222",
+                        "text-dark": "#F5F5F7",
+                        "text-secondary-light": "#666666",
+                        "text-secondary-dark": "#999999",
+                        "error": "#D70000",
+                        "info": "#007AFF",
+                    },
+                    fontFamily: {
+                        "display": ["Space Grotesk", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-text-light dark:text-text-dark">
+<div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center bg-background-light dark:bg-background-dark p-4 pb-2 justify-between sticky top-0 z-10 border-b border-surface-light/10 dark:border-surface-dark/40">
+<div class="flex size-12 shrink-0 items-center">
+<span class="material-symbols-outlined text-text-light dark:text-text-dark" style="font-size: 24px;">arrow_back_ios_new</span>
+</div>
+<h2 class="text-text-light dark:text-text-dark text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Exam Results</h2>
+<div class="flex w-12 items-center justify-end">
+<p class="text-primary text-base font-bold leading-normal tracking-[0.015em] shrink-0">Done</p>
+</div>
+</div>
+<div class="p-4 flex flex-col gap-6">
+<!-- Results Summary Card -->
+<div class="flex flex-col items-center gap-6 rounded-xl bg-surface-light dark:bg-surface-dark p-6">
+<!-- Score Gauge/Ring -->
+<div class="relative flex items-center justify-center size-40">
+<svg class="size-full" height="36" viewbox="0 0 36 36" width="36" xmlns="http://www.w3.org/2000/svg">
+<circle class="stroke-gray-200 dark:stroke-gray-700" cx="18" cy="18" fill="none" r="16" stroke-width="3"></circle>
+<circle class="stroke-primary" cx="18" cy="18" fill="none" r="16" stroke-dasharray="85 100" stroke-dashoffset="25" stroke-linecap="round" stroke-width="3"></circle>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="font-bold text-3xl text-text-light dark:text-text-dark">85%</span>
+<span class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Passing Score: 80%</span>
+</div>
+</div>
+<!-- Headline & Body Text -->
+<div class="text-center">
+<h1 class="text-text-light dark:text-text-dark tracking-light text-[32px] font-bold leading-tight">Congratulations!</h1>
+<p class="text-text-secondary-light dark:text-text-secondary-dark text-base font-normal leading-normal pt-1">You passed the exam.</p>
+</div>
+<!-- Key Statistics -->
+<div class="grid grid-cols-3 gap-3 w-full text-center">
+<div class="flex flex-col gap-1 rounded-lg p-2 bg-primary/10">
+<p class="text-xs font-medium leading-normal text-primary">Correct</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-xl font-bold leading-tight">42/50</p>
+</div>
+<div class="flex flex-col gap-1 rounded-lg p-2 bg-error/10">
+<p class="text-xs font-medium leading-normal text-error">Incorrect</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-xl font-bold leading-tight">8/50</p>
+</div>
+<div class="flex flex-col gap-1 rounded-lg p-2 bg-info/10">
+<p class="text-xs font-medium leading-normal text-info">Time Taken</p>
+<p class="text-text-light dark:text-text-dark tracking-light text-xl font-bold leading-tight">25:18</p>
+</div>
+</div>
+</div>
+<!-- Primary Action Button -->
+<button class="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-4 px-5 text-center text-base font-bold text-white">Review Answers</button>
+<!-- Question List -->
+<div class="flex flex-col gap-3">
+<h3 class="text-lg font-bold text-text-light dark:text-text-dark">All Questions</h3>
+<!-- Question Row Item: Correct -->
+<div class="flex items-center gap-4 rounded-lg bg-surface-light dark:bg-surface-dark p-4">
+<div class="flex-1">
+<p class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Q1</p>
+<p class="text-base font-medium leading-tight text-text-light dark:text-text-dark">What is the primary function of a transformer model's attention mechanism?</p>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">check_circle</span>
+</div>
+<!-- Question Row Item: Incorrect -->
+<div class="flex items-center gap-4 rounded-lg bg-surface-light dark:bg-surface-dark p-4">
+<div class="flex-1">
+<p class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Q2</p>
+<p class="text-base font-medium leading-tight text-text-light dark:text-text-dark">Which technique is used to reduce overfitting in neural networks?</p>
+</div>
+<span class="material-symbols-outlined text-error" style="font-size: 24px;">cancel</span>
+</div>
+<!-- Question Row Item: Correct & Saved -->
+<div class="flex items-center gap-4 rounded-lg bg-surface-light dark:bg-surface-dark p-4">
+<div class="flex-1">
+<p class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Q3</p>
+<p class="text-base font-medium leading-tight text-text-light dark:text-text-dark">What does the term "fine-tuning" refer to in the context of LLMs?</p>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-info" style="font-variation-settings: 'FILL' 1;">bookmark</span>
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">check_circle</span>
+</div>
+</div>
+<!-- Question Row Item: Correct -->
+<div class="flex items-center gap-4 rounded-lg bg-surface-light dark:bg-surface-dark p-4">
+<div class="flex-1">
+<p class="text-sm font-medium text-text-secondary-light dark:text-text-secondary-dark">Q4</p>
+<p class="text-base font-medium leading-tight text-text-light dark:text-text-dark">Explain the concept of "temperature" in text generation.</p>
+</div>
+<span class="material-symbols-outlined text-primary" style="font-size: 24px;">check_circle</span>
+</div>
+</div>
+</div>
+</div>
+</body></html>

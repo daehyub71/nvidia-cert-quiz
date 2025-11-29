@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Exam Mode Setup</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#76B900",
+              "background-light": "#f6f6f8",
+              "background-dark": "#1A1A1A",
+              "surface-dark": "#2a2a2a",
+              "border-dark": "#3c3c3c",
+              "text-primary-dark": "#F5F5F5",
+              "text-secondary-dark": "#A9A9A9",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings:
+            'FILL' 0,
+            'wght' 400,
+            'GRAD' 0,
+            'opsz' 24
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col dark group/design-root overflow-x-hidden">
+<!-- Top App Bar -->
+<div class="flex items-center p-4 pb-2 justify-between">
+<div class="flex size-12 shrink-0 items-center justify-center">
+<span class="material-symbols-outlined text-text-primary-dark text-3xl">arrow_back_ios_new</span>
+</div>
+<h1 class="text-text-primary-dark text-xl font-bold leading-tight tracking-[-0.015em] flex-1 text-center">Exam Mode Setup</h1>
+<div class="size-12 shrink-0"></div> <!-- Spacer for centering title -->
+</div>
+<div class="flex flex-1 flex-col justify-between p-4">
+<div class="flex flex-col gap-6">
+<!-- Number of Questions Section -->
+<div>
+<h2 class="text-text-primary-dark text-lg font-bold leading-tight tracking-[-0.015em] px-0 pb-3 pt-4">Number of Questions</h2>
+<div class="flex">
+<div class="flex h-12 flex-1 items-center justify-center rounded-lg bg-surface-dark p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(118,185,0,0.4)] has-[:checked]:text-black text-text-secondary-dark text-base font-medium leading-normal transition-colors">
+<span class="truncate">5</span>
+<input class="invisible w-0" name="question_count" type="radio" value="5"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(118,185,0,0.4)] has-[:checked]:text-black text-text-secondary-dark text-base font-medium leading-normal transition-colors">
+<span class="truncate">10</span>
+<input checked="" class="invisible w-0" name="question_count" type="radio" value="10"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(118,185,0,0.4)] has-[:checked]:text-black text-text-secondary-dark text-base font-medium leading-normal transition-colors">
+<span class="truncate">15</span>
+<input class="invisible w-0" name="question_count" type="radio" value="15"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center overflow-hidden rounded-md px-2 has-[:checked]:bg-primary has-[:checked]:shadow-[0_0_4px_rgba(118,185,0,0.4)] has-[:checked]:text-black text-text-secondary-dark text-base font-medium leading-normal transition-colors">
+<span class="truncate">20</span>
+<input class="invisible w-0" name="question_count" type="radio" value="20"/>
+</label>
+</div>
+</div>
+</div>
+<!-- Question Source Section -->
+<div>
+<h2 class="text-text-primary-dark text-lg font-bold leading-tight tracking-[-0.015em] px-0 pb-3 pt-4">Question Source</h2>
+<div class="flex flex-col gap-3" style="--radio-dot-svg: url('data:image/svg+xml,%3csvg viewBox=%270 0 16 16%27 fill=%27rgb(26,26,26)%27 xmlns=%27http://www.w3.org/2000/svg%27%3e%3ccircle cx=%278%27 cy=%278%27 r=%274%27/%3e%3c/svg%3e');">
+<label class="flex cursor-pointer items-center gap-4 rounded-lg border border-solid border-border-dark p-4 has-[:checked]:border-primary has-[:checked]:bg-primary/20 transition-colors">
+<div class="flex grow flex-col">
+<p class="text-text-primary-dark text-base font-medium leading-normal">Entirely Random</p>
+<p class="text-text-secondary-dark text-sm font-normal leading-normal">Pulls from the entire question bank</p>
+</div>
+<input checked="" class="h-6 w-6 shrink-0 appearance-none rounded-full border-2 border-border-dark bg-transparent checked:border-primary checked:bg-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0" name="question_source" type="radio"/>
+</label>
+<label class="flex cursor-pointer items-center gap-4 rounded-lg border border-solid border-border-dark p-4 has-[:checked]:border-primary has-[:checked]:bg-primary/20 transition-colors">
+<div class="flex grow flex-col">
+<p class="text-text-primary-dark text-base font-medium leading-normal">Incorrect Answers Only</p>
+<p class="text-text-secondary-dark text-sm font-normal leading-normal">Focus on questions you previously got wrong</p>
+</div>
+<input class="h-6 w-6 shrink-0 appearance-none rounded-full border-2 border-border-dark bg-transparent checked:border-primary checked:bg-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0" name="question_source" type="radio"/>
+</label>
+<label class="flex cursor-pointer items-center gap-4 rounded-lg border border-solid border-border-dark p-4 has-[:checked]:border-primary has-[:checked]:bg-primary/20 transition-colors">
+<div class="flex grow flex-col">
+<p class="text-text-primary-dark text-base font-medium leading-normal">Bookmarked Questions</p>
+<p class="text-text-secondary-dark text-sm font-normal leading-normal">Review questions you've saved</p>
+</div>
+<input class="h-6 w-6 shrink-0 appearance-none rounded-full border-2 border-border-dark bg-transparent checked:border-primary checked:bg-primary checked:bg-[image:--radio-dot-svg] focus:outline-none focus:ring-0 focus:ring-offset-0" name="question_source" type="radio"/>
+</label>
+</div>
+</div>
+<!-- Language Section -->
+<div>
+<h2 class="text-text-primary-dark text-lg font-bold leading-tight tracking-[-0.015em] px-0 pb-3 pt-4">Language</h2>
+<div class="flex items-center justify-between rounded-lg border border-solid border-border-dark p-4">
+<p class="text-text-primary-dark text-base font-medium leading-normal">Korean Language</p>
+<label class="relative inline-flex cursor-pointer items-center">
+<input class="peer sr-only" type="checkbox" value=""/>
+<div class="peer h-7 w-12 rounded-full bg-surface-dark after:absolute after:start-[4px] after:top-[4px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-primary peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none rtl:peer-checked:after:-translate-x-full"></div>
+</label>
+</div>
+</div>
+</div>
+<!-- CTA Button -->
+<div class="mt-8">
+<button class="flex h-14 w-full items-center justify-center rounded-lg bg-primary text-lg font-bold text-black transition-transform active:scale-[0.98]">
+                    Start Exam
+                </button>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Home/Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,0" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 0,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#76B900",
+              "background-light": "#F5F5F7",
+              "background-dark": "#1A293D",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative flex h-auto min-h-screen w-full flex-col">
+<main class="flex-1 pb-28">
+<!-- Top App Bar -->
+<div class="flex items-center p-4">
+<div class="flex size-12 shrink-0 items-center">
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10" data-alt="User profile picture with abstract pattern" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDqV5f2mbDmfBuCVQTarpIcleRNd44PKm8C3oklUxDPUy4sekNBj_Bu5Ay3SEu3AB0PBRBeIsmHuZBAtrlrmPk8DvzH3OOxxN5MvGAT0Tu1kLzemGEfR4kT0eRuLTs1OcaktZSvDy_WkF2EZ9xoW8oA7p1qipTmua5uPoNZMfmrPdDmD_5n3WmbfSEOzKO5MDAOHmQ1dUaiRGzAmmvDJSLluDCO6de6Enu5H3vO2k6wAAZ-ehdYJQXLjeLgFEuKnlsFXM_l_uO_UbMe");'></div>
+</div>
+<h2 class="text-slate-900 dark:text-white text-lg font-bold leading-tight tracking-[-0.015em] flex-1">Welcome back, Alex!</h2>
+<div class="flex w-12 items-center justify-end">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-slate-900 dark:text-white gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0">
+<span class="material-symbols-outlined text-3xl">settings</span>
+</button>
+</div>
+</div>
+<!-- Headline Text -->
+<h1 class="text-slate-900 dark:text-white tracking-tight text-[28px] font-bold leading-tight px-4 pb-3 pt-5">Your Progress</h1>
+<!-- Progress Bar -->
+<div class="flex flex-col gap-3 px-4 pb-6">
+<div class="flex gap-6 justify-between">
+<p class="text-slate-800 dark:text-slate-200 text-base font-medium leading-normal">Overall Exam Readiness</p>
+<p class="text-slate-900 dark:text-white text-sm font-bold leading-normal">75%</p>
+</div>
+<div class="rounded-full bg-slate-200 dark:bg-slate-700/50"><div class="h-2.5 rounded-full bg-primary" style="width: 75%;"></div></div>
+<p class="text-slate-500 dark:text-slate-400 text-sm font-normal leading-normal">Keep going, you're on the right track!</p>
+</div>
+<!-- Button Group -->
+<div class="flex flex-1 gap-3 max-w-[480px] flex-col items-stretch px-4 py-3">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-5 bg-primary text-slate-900 text-lg font-bold leading-normal tracking-[-0.01em] w-full">
+<span class="truncate">Start New Exam</span>
+</button>
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-14 px-5 bg-primary/20 dark:bg-primary/30 text-slate-900 dark:text-white text-lg font-bold leading-normal tracking-[-0.01em] w-full">
+<span class="truncate">Quick Review</span>
+</button>
+</div>
+<!-- Section Header -->
+<h2 class="text-slate-900 dark:text-white text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-8">Review &amp; Study</h2>
+<!-- Feature Navigation Cards -->
+<div class="grid grid-cols-2 gap-4 px-4">
+<div class="flex flex-col items-start justify-between rounded-xl bg-white dark:bg-slate-900/50 p-4 h-32">
+<div>
+<div class="flex items-center justify-center size-10 rounded-lg bg-red-500/10 dark:bg-red-500/20 mb-2">
+<span class="material-symbols-outlined text-red-500 dark:text-red-400">cancel</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white">Incorrect Answers</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">15 questions</p>
+</div>
+<div class="flex flex-col items-start justify-between rounded-xl bg-white dark:bg-slate-900/50 p-4 h-32">
+<div>
+<div class="flex items-center justify-center size-10 rounded-lg bg-blue-500/10 dark:bg-blue-500/20 mb-2">
+<span class="material-symbols-outlined text-blue-500 dark:text-blue-400">bookmark</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white">Bookmarked</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">8 questions</p>
+</div>
+<div class="flex flex-col items-start justify-between rounded-xl bg-white dark:bg-slate-900/50 p-4 h-32">
+<div>
+<div class="flex items-center justify-center size-10 rounded-lg bg-green-500/10 dark:bg-green-500/20 mb-2">
+<span class="material-symbols-outlined text-green-500 dark:text-green-400">bar_chart</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white">Statistics</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">View performance</p>
+</div>
+<div class="flex flex-col items-start justify-between rounded-xl bg-white dark:bg-slate-900/50 p-4 h-32">
+<div>
+<div class="flex items-center justify-center size-10 rounded-lg bg-purple-500/10 dark:bg-purple-500/20 mb-2">
+<span class="material-symbols-outlined text-purple-500 dark:text-purple-400">school</span>
+</div>
+<h3 class="font-bold text-slate-900 dark:text-white">Study Mode</h3>
+</div>
+<p class="text-sm text-slate-500 dark:text-slate-400">Learn at your pace</p>
+</div>
+</div>
+</main>
+<!-- Bottom Tab Bar -->
+<nav class="fixed bottom-0 left-0 right-0 h-24 bg-white/80 dark:bg-background-dark/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800">
+<div class="flex justify-around items-center h-full max-w-md mx-auto pt-2">
+<a class="flex flex-col items-center gap-1 text-primary" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1, 'wght' 500;">home</span>
+<span class="text-xs font-bold">Home</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">topic</span>
+<span class="text-xs font-medium">Topics</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-xs font-medium">History</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-slate-500 dark:text-slate-400" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-xs font-medium">Profile</span>
+</a>
+</div>
+</nav>
+</div>
+</body></html>

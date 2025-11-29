@@ -316,159 +316,75 @@ CREATE TABLE explanations (
 
 ## 화면 설계
 
-### 1. 홈 화면
-```
-┌────────────────────────────────┐
-│  🎓 NVIDIA Cert Quiz          │
-│                                │
-│  ┌────────────────────────┐   │
-│  │    📊 학습 현황         │   │
-│  │    총 150문제 중 45문제  │   │
-│  │    정답률: 72%          │   │
-│  │    ████████░░ 30%       │   │
-│  └────────────────────────┘   │
-│                                │
-│  ┌──────┐ ┌──────┐ ┌──────┐  │
-│  │ 🎯   │ │ 📝   │ │ ⭐   │  │
-│  │시험  │ │오답  │ │북마크│  │
-│  │시작  │ │노트  │ │      │  │
-│  └──────┘ └──────┘ └──────┘  │
-│                                │
-│  ┌──────┐ ┌──────┐           │
-│  │ 📈   │ │ ⚙️   │           │
-│  │통계  │ │설정  │           │
-│  │      │ │      │           │
-│  └──────┘ └──────┘           │
-│                                │
-│  ────────────────────────────  │
-│  🏆 최근 시험: 8/10 (80%)     │
-└────────────────────────────────┘
-```
+> **디자인 소스**: `docs/stitch_home_dashboard/` 디렉토리의 Stitch 디자인 파일 기준
 
-### 2. 시험 설정 화면
-```
-┌────────────────────────────────┐
-│  ← 시험 설정                   │
-│                                │
-│  문제 수:                      │
-│  ┌────┐ ┌────┐ ┌────┐ ┌────┐ │
-│  │ 5  │ │ 10 │ │ 15 │ │ 20 │ │
-│  └────┘ └────┘ └────┘ └────┘ │
-│           ▲ 선택됨             │
-│                                │
-│  출제 범위:                    │
-│  ┌────────────────────────┐   │
-│  │ ● 전체 랜덤            │   │
-│  │ ○ 오답 문제만          │   │
-│  │ ○ 북마크 문제만        │   │
-│  └────────────────────────┘   │
-│                                │
-│  언어: [🇺🇸 English ▼]        │
-│                                │
-│  ┌────────────────────────┐   │
-│  │      🚀 시험 시작       │   │
-│  └────────────────────────┘   │
-└────────────────────────────────┘
-```
+### 화면 목록
 
-### 3. 시험 진행 화면
-```
-┌────────────────────────────────┐
-│ Q 3/10          [🇺🇸|🇰🇷] [⭐] │
-│ ████████░░░░░░░░░░░░░ 30%     │
-│                                │
-│ What does LogisticRegression   │
-│ .coef_ represent in a          │
-│ logistic regression model?     │
-│                                │
-│ ┌────────────────────────┐    │
-│ │ ○ A. The predicted      │    │
-│ │      probabilities...   │    │
-│ └────────────────────────┘    │
-│ ┌────────────────────────┐    │
-│ │ ● B. The weights or     │    │
-│ │      coefficients...    │    │
-│ └────────────────────────┘    │
-│ ┌────────────────────────┐    │
-│ │ ○ C. The accuracy of    │    │
-│ │      the model          │    │
-│ └────────────────────────┘    │
-│ ┌────────────────────────┐    │
-│ │ ○ D. The log-odds of    │    │
-│ │      the positive class │    │
-│ └────────────────────────┘    │
-│                                │
-│  [← 이전]           [다음 →]  │
-│                                │
-│  1  2  ●  4  5  6  7  8  9  10 │
-└────────────────────────────────┘
-```
+| 화면 | 디자인 파일 | 설명 |
+|------|------------|------|
+| 홈 대시보드 | [home/dashboard/screen.png](docs/stitch_home_dashboard/home/dashboard/screen.png) | 학습 현황, 메뉴 네비게이션 |
+| 시험 설정 | [exam_mode_setup/screen.png](docs/stitch_home_dashboard/exam_mode_setup/screen.png) | 문제 수, 출제 범위, 언어 선택 |
+| 시험 진행 | [exam_session/screen.png](docs/stitch_home_dashboard/exam_session/screen.png) | 문제 풀이, 진행률, 북마크 |
+| 결과 및 해설 | [exam_results_&_explanation/screen.png](docs/stitch_home_dashboard/exam_results_&_explanation/screen.png) | 점수, 문제별 결과, AI 해설 |
+| 북마크 | [bookmarks/screen.png](docs/stitch_home_dashboard/bookmarks/screen.png) | 북마크한 문제 목록 |
+| 오답 노트 | [incorrect_answers/review/screen.png](docs/stitch_home_dashboard/incorrect_answers/review/screen.png) | 틀린 문제 목록, 복습 기능 |
 
-### 4. 결과 화면
-```
-┌────────────────────────────────┐
-│         🏆 시험 완료!          │
-│                                │
-│         ┌───────────┐         │
-│         │  8 / 10   │         │
-│         │   80%     │         │
-│         └───────────┘         │
-│                                │
-│  ⏱️ 소요시간: 5분 32초         │
-│  📊 평균 정답률: 72% → 75%    │
-│                                │
-│  ───── 문제별 결과 ─────       │
-│  ✅ Q1  ✅ Q2  ❌ Q3  ✅ Q4    │
-│  ✅ Q5  ✅ Q6  ❌ Q7  ✅ Q8    │
-│  ✅ Q9  ✅ Q10                 │
-│                                │
-│ ┌────────────────────────┐    │
-│ │    📖 해설 보기         │    │
-│ └────────────────────────┘    │
-│ ┌────────────────────────┐    │
-│ │    🔄 다시 풀기         │    │
-│ └────────────────────────┘    │
-│ ┌────────────────────────┐    │
-│ │    🏠 홈으로           │    │
-│ └────────────────────────┘    │
-└────────────────────────────────┘
-```
+### 1. 홈 대시보드
+![홈 대시보드](docs/stitch_home_dashboard/home/dashboard/screen.png)
 
-### 5. 해설 화면
-```
-┌────────────────────────────────┐
-│ ← 해설                 Q3/10  │
-│                                │
-│ ❌ 오답                        │
-│                                │
-│ What does a high recall        │
-│ indicate about the model?      │
-│                                │
-│ 내 답: A (low rate of false    │
-│        positives)              │
-│ 정답:  B (excellent at         │
-│        identifying all...)     │
-│                                │
-│ ┌────────────────────────┐    │
-│ │ 💡 AI 해설              │    │
-│ │                         │    │
-│ │ Recall(재현율)은 실제   │    │
-│ │ 양성 샘플 중 모델이     │    │
-│ │ 올바르게 양성으로       │    │
-│ │ 예측한 비율입니다.      │    │
-│ │                         │    │
-│ │ 높은 Recall은 모델이    │    │
-│ │ 특정 클래스의 모든      │    │
-│ │ 인스턴스를 잘 식별한다는│    │
-│ │ 것을 의미합니다.        │    │
-│ │                         │    │
-│ │ 참고: Precision과의     │    │
-│ │ 차이점...               │    │
-│ └────────────────────────┘    │
-│                                │
-│  [← 이전 문제]  [다음 문제 →]  │
-└────────────────────────────────┘
-```
+**주요 구성 요소:**
+- 학습 현황 (총 문제 수, 진도율, 정답률)
+- 시험 시작 버튼
+- 오답 노트, 북마크, 통계, 설정 네비게이션
+- 최근 시험 결과 요약
+
+### 2. 시험 설정
+![시험 설정](docs/stitch_home_dashboard/exam_mode_setup/screen.png)
+
+**주요 구성 요소:**
+- 문제 수 선택 (5 / 10 / 15 / 20)
+- 출제 범위 (전체 랜덤 / 오답 문제만 / 북마크 문제만)
+- 언어 선택 (English / 한국어)
+- 시험 시작 버튼
+
+### 3. 시험 진행
+![시험 진행](docs/stitch_home_dashboard/exam_session/screen.png)
+
+**주요 구성 요소:**
+- 문제 번호 및 진행률 표시
+- 언어 전환 토글
+- 북마크 버튼
+- 문제 텍스트 및 선택지 (A, B, C, D)
+- 이전/다음 네비게이션
+- 문제 번호 인디케이터
+
+### 4. 결과 및 해설
+![결과 및 해설](docs/stitch_home_dashboard/exam_results_&_explanation/screen.png)
+
+**주요 구성 요소:**
+- 점수 표시 (정답 수 / 총 문제 수, 백분율)
+- 소요 시간
+- 문제별 정오답 표시 (✅/❌)
+- AI 해설 (LLM 생성)
+- 해설 보기, 다시 풀기, 홈으로 버튼
+
+### 5. 북마크
+![북마크](docs/stitch_home_dashboard/bookmarks/screen.png)
+
+**주요 구성 요소:**
+- 북마크한 문제 목록
+- 문제 미리보기
+- 북마크 해제 기능
+- 북마크 문제만 시험 시작
+
+### 6. 오답 노트
+![오답 노트](docs/stitch_home_dashboard/incorrect_answers/review/screen.png)
+
+**주요 구성 요소:**
+- 틀린 문제 목록
+- 내 답 vs 정답 표시
+- 복습 완료 체크
+- 오답 문제만 시험 시작
 
 ---
 
@@ -546,17 +462,17 @@ nvidia-cert-quiz/
 ### Backend (.env)
 ```bash
 # Supabase (기존 seoul-location-services-app 프로젝트 공유)
-SUPABASE_URL=https://xptueenuumxhmhkantdl.supabase.co
-SUPABASE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwdHVlZW51dW14aG1oa2FudGRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMjMwNzYsImV4cCI6MjA3NzU5OTA3Nn0.2p2P47ujXC5jsWSSJgCRmR74bVP1RFIlhz9x-tTWjHM
-SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwdHVlZW51dW14aG1oa2FudGRsIiwicm9sZSI6InNlcnZpY2Vfcm9sZSIsImlhdCI6MTc2MjAyMzA3NiwiZXhwIjoyMDc3NTk5MDc2fQ.HtOBoxGr9xdaibNrfhJA1Qa0RGyrAkgMUeVUE9ChpWI
-SUPABASE_DATABASE_URL=postgresql://postgres.xptueenuumxhmhkantdl:%23Skcc0694300@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
+SUPABASE_URL=https://your-project-id.supabase.co
+SUPABASE_KEY=your-supabase-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-supabase-service-role-key
+SUPABASE_DATABASE_URL=postgresql://postgres.your-project-id:password@aws-0-ap-northeast-2.pooler.supabase.com:6543/postgres
 
 # Upstash Redis (캐싱용, 선택사항)
-UPSTASH_URL=https://enhanced-pegasus-30420.upstash.io
-UPSTASH_TOKEN=AXbUAAIncDI2MTQyZjI0MzE4MmI0NThmYjU5ZGE0OWUxYWQxYWJlNXAyMzA0MjA
+UPSTASH_URL=https://your-instance.upstash.io
+UPSTASH_TOKEN=your-upstash-token
 
 # OpenAI
-OPENAI_API_KEY=sk-...
+OPENAI_API_KEY=sk-your-openai-api-key
 
 # App
 ENVIRONMENT=development
@@ -569,8 +485,8 @@ EXPO_PUBLIC_API_URL=http://localhost:8000
 # Production: https://nvidia-cert-quiz-xxx.run.app
 
 # Supabase Direct Access (선택사항 - 오프라인 캐싱용)
-EXPO_PUBLIC_SUPABASE_URL=https://xptueenuumxhmhkantdl.supabase.co
-EXPO_PUBLIC_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhwdHVlZW51dW14aG1oa2FudGRsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjIwMjMwNzYsImV4cCI6MjA3NzU5OTA3Nn0.2p2P47ujXC5jsWSSJgCRmR74bVP1RFIlhz9x-tTWjHM
+EXPO_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+EXPO_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 ```
 
 ---

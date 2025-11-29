@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Bookmarks</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings:
+        'FILL' 1,
+        'wght' 400,
+        'GRAD' 0,
+        'opsz' 24
+      }
+    </style>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#76B900",
+              "background-light": "#F5F7FA",
+              "background-dark": "#101622",
+            },
+            fontFamily: {
+              "display": ["Space Grotesk", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.5rem", "lg": "0.75rem", "xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col overflow-x-hidden bg-background-light dark:bg-background-dark">
+<!-- Top App Bar -->
+<header class="sticky top-0 z-10 flex items-center justify-between border-b border-zinc-200/50 bg-background-light/80 p-4 pb-3 backdrop-blur-sm dark:border-zinc-800/50 dark:bg-background-dark/80">
+<div class="flex size-10 shrink-0 items-center">
+<span class="material-symbols-outlined text-zinc-800 dark:text-zinc-200" style="font-size: 28px;">arrow_back_ios_new</span>
+</div>
+<h1 class="flex-1 text-center text-xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white">Bookmarks</h1>
+<div class="flex w-10 items-center justify-end">
+<p class="text-primary text-base font-bold leading-normal">Edit</p>
+</div>
+</header>
+<main class="flex-1">
+<div class="flex flex-col gap-4 p-4">
+<!-- Primary CTA Button -->
+<div class="flex">
+<button class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 px-5 flex-1 bg-primary text-zinc-900 text-base font-bold leading-normal tracking-wide shadow-lg shadow-primary/20">
+<span class="truncate">Start Exam with Bookmarks</span>
+</button>
+</div>
+<!-- Bookmarks List -->
+<div class="mt-2 flex flex-col divide-y divide-zinc-200 dark:divide-zinc-800">
+<!-- List Item 1 -->
+<div class="flex items-center gap-4 py-3">
+<div class="flex flex-1 flex-col justify-center gap-1.5">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">What is the primary function of an attention mechanism in a transformer model?</p>
+<p class="text-primary text-xs font-bold leading-normal uppercase tracking-wider">Model Architecture</p>
+</div>
+<div class="shrink-0">
+<div class="text-primary flex size-7 items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 24px;">bookmark</span>
+</div>
+</div>
+</div>
+<!-- List Item 2 -->
+<div class="flex items-center gap-4 py-3">
+<div class="flex flex-1 flex-col justify-center gap-1.5">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Explain the difference between fine-tuning and transfer learning in LLMs.</p>
+<p class="text-primary text-xs font-bold leading-normal uppercase tracking-wider">Fine-Tuning</p>
+</div>
+<div class="shrink-0">
+<div class="text-primary flex size-7 items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 24px;">bookmark</span>
+</div>
+</div>
+</div>
+<!-- List Item 3 -->
+<div class="flex items-center gap-4 py-3">
+<div class="flex flex-1 flex-col justify-center gap-1.5">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Which of the following is a key characteristic of Reinforcement Learning from Human Feedback?</p>
+<p class="text-primary text-xs font-bold leading-normal uppercase tracking-wider">RLHF</p>
+</div>
+<div class="shrink-0">
+<div class="text-primary flex size-7 items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 24px;">bookmark</span>
+</div>
+</div>
+</div>
+<!-- List Item 4 -->
+<div class="flex items-center gap-4 py-3">
+<div class="flex flex-1 flex-col justify-center gap-1.5">
+<p class="text-zinc-900 dark:text-white text-base font-medium leading-normal">Describe the role of positional encodings in the Transformer architecture.</p>
+<p class="text-primary text-xs font-bold leading-normal uppercase tracking-wider">Transformers</p>
+</div>
+<div class="shrink-0">
+<div class="text-primary flex size-7 items-center justify-center">
+<span class="material-symbols-outlined" style="font-size: 24px;">bookmark</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Empty State Example (Commented Out for Visual Display of the List) -->
+<!-- 
+            <div class="flex h-full flex-col items-center justify-center p-8 text-center mt-16">
+                <div class="flex size-20 items-center justify-center rounded-full bg-zinc-200 dark:bg-zinc-800">
+                    <span class="material-symbols-outlined text-zinc-500 dark:text-zinc-400" style="font-size: 40px; font-variation-settings: 'FILL' 0;">bookmark_border</span>
+                </div>
+                <h2 class="mt-6 text-xl font-bold text-zinc-900 dark:text-white">No Bookmarks Yet</h2>
+                <p class="mt-2 max-w-xs text-sm text-zinc-600 dark:text-zinc-400">Tap the bookmark icon on any question during a practice exam to save it here for later review.</p>
+            </div>
+            -->
+</main>
+</div>
+</body></html>
