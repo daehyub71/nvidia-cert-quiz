@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+.venv/
+env/
+ENV/
+.env
+*.egg-info/
+dist/
+build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Data
+data/raw/
+data/processed/*.json
+*.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Mobile (React Native / Expo)
+mobile/node_modules/
+mobile/.expo/
+mobile/dist/
+mobile/*.hprof
+mobile/*.jks
+mobile/*.keystore
+
+# Secrets
+*.pem
+*.key
+firebase-admin-sdk.json
+
+# Environment
+.env.local
+.env.*.local
+
+# Build
+*.ipa
+*.apk
+*.aab
