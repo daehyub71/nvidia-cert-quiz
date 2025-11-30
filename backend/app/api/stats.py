@@ -1,6 +1,7 @@
 """Statistics API endpoints."""
 from fastapi import APIRouter
 from typing import List
+import uuid
 
 from app.schemas.question import UserStats
 from app.core.database import get_supabase_client
@@ -8,13 +9,19 @@ from app.core.database import get_supabase_client
 router = APIRouter()
 
 
+def device_id_to_uuid(device_id: str) -> str:
+    """Convert device ID string to deterministic UUID."""
+    return str(uuid.uuid5(uuid.NAMESPACE_DNS, device_id))
+
+
 @router.get("/user/{user_id}", response_model=UserStats)
 async def get_user_stats(user_id: str):
     """Get comprehensive statistics for a user."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
 
     # Get quiz history
-    history_response = supabase.table("nq_quiz_history").select("*").eq("user_id", user_id).eq("status", "completed").execute()
+    history_response = supabase.table("nq_quiz_history").select("*").eq("user_id", user_uuid).eq("status", "completed").execute()
 
     quizzes = history_response.data
 
@@ -75,9 +82,10 @@ async def get_user_stats(user_id: str):
 async def get_wrong_answers(user_id: str, limit: int = 50):
     """Get user's wrong answers with question details."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
 
     # Get wrong answers
-    wrong_response = supabase.table("nq_wrong_answers").select("*").eq("user_id", user_id).order("created_at", desc=True).limit(limit).execute()
+    wrong_response = supabase.table("nq_wrong_answers").select("*").eq("user_id", user_uuid).order("created_at", desc=True).limit(limit).execute()
 
     if not wrong_response.data:
         return []
@@ -112,7 +120,9 @@ async def get_leaderboard(limit: int = 10):
     user_stats = {}
     for quiz in response.data:
         user_id = quiz["user_id"]
-        if user_id == "anonymous":
+        # Skip anonymous UUID
+        anon_uuid = device_id_to_uuid("anonymous")
+        if user_id == anon_uuid:
             continue
 
         if user_id not in user_stats:
@@ -141,11 +151,12 @@ async def get_leaderboard(limit: int = 10):
 async def get_daily_progress(user_id: str, days: int = 7):
     """Get user's daily quiz progress."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
     from datetime import datetime, timedelta
 
     start_date = datetime.utcnow() - timedelta(days=days)
 
-    response = supabase.table("nq_quiz_history").select("*").eq("user_id", user_id).eq("status", "completed").gte("completed_at", start_date.isoformat()).execute()
+    response = supabase.table("nq_quiz_history").select("*").eq("user_id", user_uuid).eq("status", "completed").gte("completed_at", start_date.isoformat()).execute()
 
     # Group by date
     daily_stats = {}

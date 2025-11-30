@@ -22,13 +22,14 @@ class QuestionBase(BaseModel):
     """Base question model."""
     question_text_en: str
     question_text_ko: str
-    options_en: List[str] = Field(..., min_length=4, max_length=6)
-    options_ko: List[str] = Field(..., min_length=4, max_length=6)
+    options_en: List[str] = Field(..., min_length=2, max_length=6)
+    options_ko: List[str] = Field(..., min_length=2, max_length=6)
     correct_answer: int = Field(..., ge=0, le=5)
     category: str
     difficulty: Difficulty = Difficulty.MEDIUM
-    source_day: int
-    source_image: str
+    source_day: Optional[int] = None
+    source_image_en: Optional[str] = None
+    source_image_ko: Optional[str] = None
 
 
 class QuestionCreate(QuestionBase):
@@ -49,15 +50,19 @@ class Question(QuestionBase):
 class QuestionResponse(BaseModel):
     """Question response for quiz (without answer)."""
     id: str
-    question_text: str
-    options: List[str]
+    question_text: str  # Default based on config language
+    options: List[str]  # Default based on config language
+    question_text_en: str
+    question_text_ko: str
+    options_en: List[str]
+    options_ko: List[str]
     category: str
     difficulty: Difficulty
 
 
 class QuizConfig(BaseModel):
     """Quiz configuration."""
-    question_count: int = Field(default=10, ge=5, le=20)
+    question_count: int = Field(default=10, ge=1, le=50)
     language: Language = Language.KOREAN
     categories: Optional[List[str]] = None
     difficulty: Optional[Difficulty] = None
@@ -82,8 +87,12 @@ class QuizSubmission(BaseModel):
 class QuestionResult(BaseModel):
     """Result for a single question."""
     question_id: str
-    question_text: str
-    options: List[str]
+    question_text: str  # Default based on config language
+    options: List[str]  # Default based on config language
+    question_text_en: str
+    question_text_ko: str
+    options_en: List[str]
+    options_ko: List[str]
     correct_answer: int
     selected_answer: int
     is_correct: bool

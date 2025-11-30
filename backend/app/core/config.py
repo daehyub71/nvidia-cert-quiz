@@ -14,6 +14,11 @@ class Settings(BaseSettings):
 
     # OpenAI
     openai_api_key: str
+    openai_model: str = "gpt-4o-mini"
+
+    # Anthropic (alternative)
+    anthropic_api_key: str = ""
+    anthropic_model: str = "claude-3-5-haiku-latest"
 
     # Upstash Redis (optional)
     upstash_url: str = ""

@@ -4,7 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
 
 from app.core.config import get_settings
-from app.api import questions, quiz, bookmarks, stats
+from app.api import questions, quiz, bookmarks, stats, users, wrong_answers, explanations
 
 
 @asynccontextmanager
@@ -41,6 +41,9 @@ app.include_router(questions.router, prefix="/api/v1/questions", tags=["Question
 app.include_router(quiz.router, prefix="/api/v1/quiz", tags=["Quiz"])
 app.include_router(bookmarks.router, prefix="/api/v1/bookmarks", tags=["Bookmarks"])
 app.include_router(stats.router, prefix="/api/v1/stats", tags=["Statistics"])
+app.include_router(users.router, prefix="/api/v1/users", tags=["Users"])
+app.include_router(wrong_answers.router, prefix="/api/v1/wrong-answers", tags=["Wrong Answers"])
+app.include_router(explanations.router, prefix="/api/v1/explanations", tags=["Explanations"])
 
 
 @app.get("/")

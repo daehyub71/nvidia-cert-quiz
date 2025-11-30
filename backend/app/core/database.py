@@ -6,9 +6,10 @@ from .config import get_settings
 
 @lru_cache()
 def get_supabase_client() -> Client:
-    """Get cached Supabase client instance."""
+    """Get cached Supabase client instance using service role key to bypass RLS."""
     settings = get_settings()
-    return create_client(settings.supabase_url, settings.supabase_key)
+    # Use service role key to bypass RLS for server-side operations
+    return create_client(settings.supabase_url, settings.supabase_service_role_key)
 
 
 def get_supabase_admin_client() -> Client:

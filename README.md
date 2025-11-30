@@ -1,46 +1,60 @@
-# 🎓 NVIDIA Cert Quiz
+# NVIDIA Cert Quiz
 
-NVIDIA 인증 제너레이티브 AI LLMs 자격증 시험 준비 앱
+A study app for NVIDIA Certified Generative AI LLMs Associate exam preparation.
 
-[![React Native](https://img.shields.io/badge/React%20Native-Expo-blue)](https://expo.dev)
-[![FastAPI](https://img.shields.io/badge/FastAPI-Python-green)](https://fastapi.tiangolo.com)
-[![Deploy](https://img.shields.io/badge/Deploy-Cloud%20Run-orange)](https://cloud.google.com/run)
+[![React](https://img.shields.io/badge/React-Vite-61DAFB)](https://react.dev)
+[![FastAPI](https://img.shields.io/badge/FastAPI-Python-009688)](https://fastapi.tiangolo.com)
+[![Vercel](https://img.shields.io/badge/Frontend-Vercel-000000)](https://vercel.com)
+[![Cloud Run](https://img.shields.io/badge/Backend-Cloud%20Run-4285F4)](https://cloud.google.com/run)
 
-## ✨ 주요 기능
+[한국어 README](README_KO.md)
 
-- 🎯 **시험 모드**: 5/10/15/20문제 선택, 랜덤 출제
-- 📖 **AI 해설**: GPT-4o 기반 상세 문제 해설
-- 📝 **오답 노트**: 틀린 문제 자동 저장 및 복습
-- ⭐ **북마크**: 어려운 문제 표시
-- 📊 **학습 통계**: 정답률 추이, 난이도 분석
-- 🌐 **다국어**: 영어/한국어 전환
+## Live Demo
 
-## 📱 스크린샷
+| Service | URL |
+|---------|-----|
+| Frontend | https://web-six-cyan-91.vercel.app |
+| Backend API | https://nvidia-cert-quiz-api-wxhce7qcyq-du.a.run.app |
+| API Docs | https://nvidia-cert-quiz-api-wxhce7qcyq-du.a.run.app/docs |
 
-(Coming Soon)
+## Features
 
-## 🏗️ 기술 스택
+- **Quiz Mode**: Select 1/3/5/10 questions, randomly generated
+- **AI Explanations**: Detailed explanations powered by GPT-4o-mini (EN/KO)
+- **Wrong Answer Review**: Automatically save incorrect answers for review
+- **Bookmarks**: Mark difficult questions for later
+- **Statistics**: Track accuracy trends and category performance
+- **Bilingual**: Real-time English/Korean language switching
 
-### Frontend
-- React Native + Expo
-- TypeScript
-- Zustand (상태 관리)
-- React Native Paper
+## Tech Stack
+
+### Frontend (Web)
+- React 18 + TypeScript
+- Vite (Build tool)
+- Zustand (State management)
+- React Router (Routing)
+- Lucide React (Icons)
 
 ### Backend
-- FastAPI
+- FastAPI (Python 3.11)
 - Supabase (PostgreSQL)
-- OpenAI GPT-4o-mini
-- Google Cloud Run
+- OpenAI GPT-4o-mini (Explanation generation)
+- Google Cloud Run (Serverless deployment)
 
-## 🚀 시작하기
+### Infrastructure
+- **Frontend Deployment**: Vercel
+- **Backend Deployment**: Google Cloud Run (asia-northeast3, Seoul)
+- **Database**: Supabase PostgreSQL
+- **Secrets**: Google Secret Manager
+
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+
 - Python 3.11+
-- Expo CLI
 - Supabase Account
 - OpenAI API Key
+- Google Cloud SDK (for deployment)
 
 ### Backend Setup
 
@@ -52,54 +66,127 @@ pip install -r requirements.txt
 
 # Configure environment
 cp .env.example .env
-# Edit .env with your credentials
+# Edit .env with your credentials:
+# - SUPABASE_URL
+# - SUPABASE_KEY
+# - SUPABASE_SERVICE_ROLE_KEY
+# - OPENAI_API_KEY
 
-# Run server
+# Run development server
 uvicorn app.main:app --reload --port 8000
 ```
 
-### Mobile Setup
+### Frontend Setup
 
 ```bash
-cd mobile
+cd web
 npm install
 
-# Configure environment
-cp .env.example .env
-# Edit .env with API URL
+# Configure environment (for production)
+echo "VITE_API_URL=http://localhost:8000" > .env
 
-# Run app
-npx expo start
+# Run development server
+npm run dev
 ```
 
-## 📂 프로젝트 구조
+### Database Setup
+
+Create the following tables in Supabase:
+
+- `questions` - Question bank
+- `users` - User information
+- `quiz_history` - Quiz history
+- `bookmarks` - Bookmarks
+- `wrong_answers` - Wrong answer notes
+- `explanations` - AI explanation cache
+
+## Deployment
+
+### Backend (Cloud Run)
+
+```bash
+cd backend
+
+# Set GCP project
+gcloud config set project YOUR_PROJECT_ID
+
+# Create secrets (first time only)
+echo -n "YOUR_SUPABASE_URL" | gcloud secrets create supabase-url --data-file=-
+echo -n "YOUR_SUPABASE_KEY" | gcloud secrets create supabase-key --data-file=-
+echo -n "YOUR_OPENAI_KEY" | gcloud secrets create openai-api-key --data-file=-
+
+# Deploy
+gcloud builds submit --config cloudbuild.yaml
+```
+
+### Frontend (Vercel)
+
+```bash
+cd web
+
+# Set Vercel environment variable
+vercel env add VITE_API_URL production
+# Enter: https://nvidia-cert-quiz-api-wxhce7qcyq-du.a.run.app
+
+# Deploy
+vercel --prod --yes
+```
+
+## Project Structure
 
 ```
 nvidia-cert-quiz/
-├── backend/           # FastAPI 서버
-│   ├── app/          # 애플리케이션 코드
-│   ├── scripts/      # 데이터 추출 스크립트
-│   └── tests/        # 테스트
-├── mobile/           # React Native 앱
-│   ├── app/          # Expo Router 페이지
-│   ├── components/   # 재사용 컴포넌트
-│   └── stores/       # 상태 관리
-└── data/             # 문제 데이터
+├── backend/              # FastAPI server
+│   ├── app/
+│   │   ├── api/          # API endpoints
+│   │   ├── core/         # Config, utilities
+│   │   ├── models/       # DB models
+│   │   ├── schemas/      # Pydantic schemas
+│   │   └── services/     # Business logic
+│   ├── scripts/          # Data extraction scripts
+│   ├── Dockerfile        # Cloud Run container
+│   ├── cloudbuild.yaml   # Cloud Build config
+│   └── requirements.txt
+│
+├── web/                  # React web app
+│   ├── src/
+│   │   ├── pages/        # Page components
+│   │   ├── components/   # Reusable components
+│   │   ├── stores/       # Zustand stores
+│   │   ├── services/     # API client
+│   │   └── types/        # TypeScript types
+│   ├── vercel.json       # Vercel config
+│   └── package.json
+│
+└── data/                 # Question data
+    └── questions.json
 ```
 
-## 📊 데이터 소스
+## API Endpoints
 
-Coursera [NVIDIA 인증 제너레이티브 AI LLMs](https://www.coursera.org/specializations/exam-prep-nca-genl-nvidia-certified-generative-ai-llms-associate) 과정의 연습 문제를 기반으로 합니다.
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/v1/questions/random` | GET | Get random questions |
+| `/api/v1/quiz/start` | POST | Start a quiz |
+| `/api/v1/quiz/submit` | POST | Submit quiz for grading |
+| `/api/v1/bookmarks` | GET/POST/DELETE | Manage bookmarks |
+| `/api/v1/wrong-answers` | GET | Get wrong answers list |
+| `/api/v1/explanations/{id}` | GET | Get AI explanation |
+| `/api/v1/stats/user/{id}` | GET | Get user statistics |
 
-- 총 ~150문제
-- 영어/한국어 지원
-- Machine Learning, Deep Learning, LLMs 등 다양한 주제
+## Data Source
 
-## 🔗 관련 링크
+Based on practice questions from Coursera [NVIDIA Certified Generative AI LLMs](https://www.coursera.org/specializations/exam-prep-nca-genl-nvidia-certified-generative-ai-llms-associate) course.
 
-- [프로젝트 기획안](PROJECT_PLAN.md)
-- [API 문서](docs/API.md)
+- 150 questions total
+- Full English/Korean support
+- 46 categories (Machine Learning, Deep Learning, LLMs, Transformers, etc.)
 
-## 📄 License
+## Related Links
+
+- [Project Plan](docs/PROJECT_PLAN.md)
+- [API Documentation (Swagger)](https://nvidia-cert-quiz-api-wxhce7qcyq-du.a.run.app/docs)
+
+## License
 
 MIT License

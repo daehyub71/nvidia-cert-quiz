@@ -10,12 +10,18 @@ from app.core.database import get_supabase_client
 router = APIRouter()
 
 
+def device_id_to_uuid(device_id: str) -> str:
+    """Convert device ID string to deterministic UUID."""
+    return str(uuid.uuid5(uuid.NAMESPACE_DNS, device_id))
+
+
 @router.get("/", response_model=List[Bookmark])
 async def get_bookmarks(user_id: str):
     """Get all bookmarks for a user."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
 
-    response = supabase.table("nq_bookmarks").select("*").eq("user_id", user_id).order("created_at", desc=True).execute()
+    response = supabase.table("nq_bookmarks").select("*").eq("user_id", user_uuid).order("created_at", desc=True).execute()
 
     return response.data
 
@@ -24,16 +30,25 @@ async def get_bookmarks(user_id: str):
 async def create_bookmark(bookmark: BookmarkCreate, user_id: str):
     """Create a new bookmark."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
+
+    # Ensure user exists in nq_users table (auto-create if not)
+    existing_user = supabase.table("nq_users").select("id").eq("id", user_uuid).execute()
+    if not existing_user.data:
+        supabase.table("nq_users").insert({
+            "id": user_uuid,
+            "created_at": datetime.utcnow().isoformat(),
+        }).execute()
 
     # Check if bookmark already exists
-    existing = supabase.table("nq_bookmarks").select("*").eq("user_id", user_id).eq("question_id", bookmark.question_id).execute()
+    existing = supabase.table("nq_bookmarks").select("*").eq("user_id", user_uuid).eq("question_id", bookmark.question_id).execute()
 
     if existing.data:
         raise HTTPException(status_code=400, detail="Bookmark already exists")
 
     bookmark_data = {
         "id": str(uuid.uuid4()),
-        "user_id": user_id,
+        "user_id": user_uuid,
         "question_id": bookmark.question_id,
         "note": bookmark.note,
         "created_at": datetime.utcnow().isoformat(),
@@ -48,8 +63,9 @@ async def create_bookmark(bookmark: BookmarkCreate, user_id: str):
 async def delete_bookmark(question_id: str, user_id: str):
     """Delete a bookmark."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
 
-    response = supabase.table("nq_bookmarks").delete().eq("user_id", user_id).eq("question_id", question_id).execute()
+    response = supabase.table("nq_bookmarks").delete().eq("user_id", user_uuid).eq("question_id", question_id).execute()
 
     if not response.data:
         raise HTTPException(status_code=404, detail="Bookmark not found")
@@ -61,9 +77,10 @@ async def delete_bookmark(question_id: str, user_id: str):
 async def get_bookmarked_questions(user_id: str):
     """Get all bookmarked questions with full details."""
     supabase = get_supabase_client()
+    user_uuid = device_id_to_uuid(user_id)
 
     # Get bookmarks
-    bookmarks_response = supabase.table("nq_bookmarks").select("question_id, note, created_at").eq("user_id", user_id).execute()
+    bookmarks_response = supabase.table("nq_bookmarks").select("question_id, note, created_at").eq("user_id", user_uuid).execute()
 
     if not bookmarks_response.data:
         return []
