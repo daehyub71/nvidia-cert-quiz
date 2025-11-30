@@ -31,6 +31,15 @@ async def get_questions(
     return response.data
 
 
+@router.get("/all")
+async def get_all_questions():
+    """Get all questions without pagination limit (raw data, no validation)."""
+    supabase = get_supabase_client()
+
+    response = supabase.table("nq_questions").select("*").execute()
+    return response.data
+
+
 @router.get("/categories")
 async def get_categories():
     """Get all question categories."""

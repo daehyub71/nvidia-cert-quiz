@@ -115,7 +115,9 @@ nvidia-cert-quiz/
 │   └── package.json
 │
 └── data/
-    └── questions.json           # Question bank (150 questions)
+    ├── questions.json           # Original question bank
+    ├── all_questions.json       # All questions from API (302)
+    └── all_questions.md         # Markdown format for NotebookLM
 ```
 
 ## Environment Variables
@@ -141,18 +143,20 @@ VITE_API_URL=https://nvidia-cert-quiz-api-wxhce7qcyq-du.a.run.app
 
 ## Database Schema (Supabase)
 
-### Core Tables
-- `questions` - 문제 은행 (150문제)
-- `users` - 사용자 (기기 ID 기반)
-- `quiz_history` - 시험 이력
-- `bookmarks` - 북마크
-- `wrong_answers` - 오답 노트
-- `explanations` - LLM 해설 캐시
+### Core Tables (nq_ prefix)
+- `nq_questions` - 문제 은행 (302문제)
+- `nq_users` - 사용자 (기기 ID 기반)
+- `nq_quiz_history` - 시험 이력
+- `nq_bookmarks` - 북마크
+- `nq_wrong_answers` - 오답 노트
+- `nq_explanations` - LLM 해설 캐시
+- `nq_question_stats` - 문제별 통계
 
 ## API Endpoints
 
 | Endpoint | Method | 설명 |
 |----------|--------|------|
+| `/api/v1/questions/all` | GET | 전체 문제 조회 (검증 없음) |
 | `/api/v1/questions/random` | GET | 랜덤 문제 조회 |
 | `/api/v1/questions/categories` | GET | 카테고리 목록 |
 | `/api/v1/quiz/start` | POST | 퀴즈 시작 |
@@ -194,9 +198,10 @@ vercel --prod --yes
 ## Data Source
 
 - **소스**: Coursera NVIDIA Generative AI LLMs 인증 과정
-- **문제 수**: 150문제
+- **문제 수**: 302문제
 - **카테고리**: 46개 (Machine Learning, Deep Learning, LLMs, Transformers 등)
 - **언어**: 영어/한국어 완전 지원
+- **데이터 파일**: `data/all_questions.json`, `data/all_questions.md`
 
 ## Development Notes
 
@@ -204,3 +209,5 @@ vercel --prod --yes
 - 언어 토글 시 페이지 새로고침 없이 실시간 전환
 - 해설은 OpenAI API로 생성 후 DB에 캐싱
 - 모바일 반응형 디자인 (iOS Safe Area 지원)
+- 100% 점수 시 confetti 효과 + 특별 이미지 표시 (`canvas-confetti` 라이브러리)
+- 일부 문제의 `options_ko`/`options_en`이 비어있어 `/questions/all`은 Pydantic 검증 없이 반환

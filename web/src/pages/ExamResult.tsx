@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Home, RotateCcw, CheckCircle, XCircle, Lightbulb, Loader, Languages } from 'lucide-react';
+import confetti from 'canvas-confetti';
 import { useQuizStore } from '../stores/quizStore';
 import type { QuizResult, Explanation } from '../types';
 import api from '../services/api';
@@ -19,12 +20,45 @@ export default function ExamResult() {
   const [explanations, setExplanations] = useState<Record<string, Explanation>>({});
   const [loading, setLoading] = useState<Set<string>>(new Set());
 
+  const percentage = result?.percentage ?? 0;
+  const isPerfectScore = percentage === 100;
+
+  // Confetti effect for perfect score
+  useEffect(() => {
+    if (isPerfectScore) {
+      // Fire confetti from both sides
+      const fireConfetti = () => {
+        // Left side
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { x: 0.1, y: 0.6 },
+          colors: ['#76B900', '#FFD700', '#FF6B6B', '#4ECDC4', '#9B59B6'],
+        });
+        // Right side
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { x: 0.9, y: 0.6 },
+          colors: ['#76B900', '#FFD700', '#FF6B6B', '#4ECDC4', '#9B59B6'],
+        });
+      };
+
+      // Initial burst
+      fireConfetti();
+
+      // Second burst after delay
+      const timer = setTimeout(fireConfetti, 500);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isPerfectScore]);
+
   if (!result) {
     navigate('/');
     return null;
   }
 
-  const percentage = result.percentage;
   const isPassing = percentage >= 70;
 
   const getScoreColor = () => {
@@ -109,7 +143,21 @@ export default function ExamResult() {
 
       {/* Score Card */}
       <div className="card" style={{ margin: '0 16px', padding: 32, textAlign: 'center' }}>
-        <div style={{ fontSize: 48, marginBottom: 16 }}>{getEmoji()}</div>
+        {isPerfectScore ? (
+          <img
+            src="/perfect-score.jpg"
+            alt="Perfect Score!"
+            style={{
+              width: '100%',
+              maxWidth: 280,
+              height: 'auto',
+              borderRadius: 12,
+              marginBottom: 16,
+            }}
+          />
+        ) : (
+          <div style={{ fontSize: 48, marginBottom: 16 }}>{getEmoji()}</div>
+        )}
         <div style={{ fontSize: 56, fontWeight: 700, color: getScoreColor() }}>
           {Math.round(percentage)}%
         </div>
@@ -117,9 +165,11 @@ export default function ExamResult() {
           {result.score} / {result.total_questions} {language === 'ko' ? '정답' : 'Correct'}
         </div>
         <p className="text-muted" style={{ marginTop: 12 }}>
-          {isPassing
-            ? (language === 'ko' ? '합격 기준을 통과했습니다!' : 'You passed!')
-            : (language === 'ko' ? '조금 더 노력이 필요합니다. 화이팅!' : 'Keep practicing! You can do it!')}
+          {isPerfectScore
+            ? (language === 'ko' ? '완벽합니다! 축하드립니다!' : 'Perfect! Congratulations!')
+            : isPassing
+              ? (language === 'ko' ? '합격 기준을 통과했습니다!' : 'You passed!')
+              : (language === 'ko' ? '조금 더 노력이 필요합니다. 화이팅!' : 'Keep practicing! You can do it!')}
         </p>
       </div>
 
